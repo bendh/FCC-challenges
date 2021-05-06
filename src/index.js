@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { Calculator } from './Calculator'
+import { ClockApp } from './Clock';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Calculator />
+    <ClockApp />
   </React.StrictMode>,
   document.getElementById('react-calculator')
 );
