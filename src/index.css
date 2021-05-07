@@ -1,3 +1,9 @@
 body{
   background-color: rgb(175, 172, 172);
 }
+
+#react-calculator {
+  display: flex;
+  width: 50%;
+  margin: auto;
+}
