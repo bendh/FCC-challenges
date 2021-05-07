@@ -2,7 +2,7 @@ body{
   background-color: rgb(175, 172, 172);
 }
 
-#react-calculator {
+#pomodoro-app {
   display: flex;
   width: 50%;
   margin: auto;

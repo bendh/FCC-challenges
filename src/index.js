@@ -8,7 +8,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ClockApp />
   </React.StrictMode>,
-  document.getElementById('react-calculator')
+  document.getElementById('pomodoro-app')
 );
 
 // If you want to start measuring performance in your app, pass a function
