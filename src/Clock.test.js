@@ -23,7 +23,6 @@ ${'break-decrement'}|${'session-decrement'}|${'User Story #3: I can see two clic
 ${'break-increment'}|${'session-increment'}|${'User Story #4: I can see two clickable elements with corresponding IDs: id="break-increment" and id="session-increment".'}
 `('$story', ({ cssId1, cssId2 }) => {
     render(<ClockApp />);
-    let testOutput = document.getElementById('testoutput');
     let foundBreakElement = document.getElementById(cssId1);
     let foundSessionElement = document.getElementById(cssId2);
 
@@ -31,10 +30,17 @@ ${'break-increment'}|${'session-increment'}|${'User Story #4: I can see two clic
     expect(foundSessionElement).toBeTruthy();
 
     fireEvent.click(foundBreakElement);
-    expect(testOutput).toHaveTextContent('event triggered by '.concat(cssId1));
-
     fireEvent.click(foundSessionElement);
-    expect(testOutput).toHaveTextContent('event triggered by '.concat(cssId2));
+    if (cssId1.endsWith('increment')) {
+      expect(document.getElementById('breakDisplay')).toHaveTextContent(6);
+      expect(document.getElementById('sessionDisplay')).toHaveTextContent(26);
+    } else {
+      expect(document.getElementById('breakDisplay')).toHaveTextContent(4);
+      expect(document.getElementById('sessionDisplay')).toHaveTextContent(24);
+    }
+
+
+
   });
 
   test.each`
@@ -59,7 +65,7 @@ ${'break-increment'}|${'session-increment'}|${'User Story #4: I can see two clic
     render(<ClockApp />);
     let element = document.getElementById('time-left');
 
-    expect(element).toHaveTextContent('00:00');
+    expect(element).toHaveTextContent('25:00');
   });
 
   test.each`
@@ -79,8 +85,17 @@ ${'reset'} | ${'User Story #10: I can see a clickable element with a correspondi
 
 
 describe('All functionality behaves as expected by FCC', () => {
-  test.skip('User Story #11: When I click the element with the id of reset, any running timer should be stopped, the value within id="break-length" should return to 5, the value within id="session-length" should return to 25, and the element with id="time-left" should reset to its default state.', () => {
+  test('User Story #11: When I click the element with the id of reset, any running timer should be stopped, the value within id="break-length" should return to 5, the value within id="session-length" should return to 25, and the element with id="time-left" should reset to its default state.', () => {
+    render(<ClockApp />);
 
+    fireEvent.click(document.getElementById('reset'));
+    let sessionSlider = document.getElementById('session-length');
+    let breakSlider = document.getElementById('break-length');
+    let timerLabel = document.getElementById('time-left');
+
+    expect(sessionSlider).toHaveValue('25');
+    expect(breakSlider).toHaveValue('5');
+    expect(timerLabel).toHaveTextContent('25:00');
   });
 
   test.skip.each`

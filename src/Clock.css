@@ -1,3 +1,39 @@
+:root {
+  --font-accent: 20px;
+}
 div {
+  display: flex;
+  flex-direction: column;
   background-color: #615e5e;
+  align-items: center;
+  justify-content: center;
+}
+
+#timer-label {
+  text-align: center;
+  margin: 1%;
+}
+#time-left {
+  text-align: center;
+  margin: 1%;
+}
+
+#break-decrement {
+  font-size: var(--font-accent);
+}
+
+#break-increment {
+  font-size: var(--font-accent);
+}
+
+#session-decrement {
+  font-size: var(--font-accent);
+}
+
+#session-increment {
+  font-size: var(--font-accent);
+}
+
+.bigger-font {
+  font-size: var(--font-accent);
 }
