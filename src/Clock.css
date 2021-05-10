@@ -37,3 +37,7 @@ div {
 .bigger-font {
   font-size: var(--font-accent);
 }
+
+.right-align {
+  align-self: flex-end;
+}

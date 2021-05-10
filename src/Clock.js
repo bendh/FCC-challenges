@@ -109,19 +109,21 @@ export class ClockApp extends React.Component {
       <main>
           <h2 id='timer-label' >{this.state.timerLabelValue}</h2>
           <h2 id='time-left' >{this.state.timeLeftValue}</h2>
-          <label htmlFor="break-slider" id="break-label"><i className="fas fa-coffee"/> Break length</label>
-          <div className="bigger-font"><i id="break-decrement" onClick={this.handleBreakChanges} className="fas fa-minus-circle"></i></div>
-          <div id="breakDisplay" >
-            <input type="range" min="1" max="25" value={this.state.breakDuration} id="break-length" onChange={this.handleBreakChanges} />{this.state.breakDuration}
-          </div>
-          <div className="bigger-font"><i id="break-increment" onClick={this.handleBreakChanges} className="fas fa-plus-circle" /></div>
 
-          <label htmlFor="session-slider" id="session-label"><i className="fas fa-briefcase" /> Session length</label>
-          <div className="bigger-font"><i id="session-decrement" className="fas fa-minus-circle" onClick={this.handleSessionChanges} /></div>
-          <div id="sessionDisplay">
-            <input type="range" min="1" max="60" value={this.state.sessionDuration} id="session-length" onChange={this.handleSessionChanges} />{this.state.sessionDuration}
-          </div>
-          <div className="bigger-font"><i id="session-increment" className="fas fa-plus-circle" onClick={this.handleSessionChanges} /></div>
+          <div className="bigger-font"><i id="break-decrement" onClick={this.handleBreakChanges} className="fas fa-minus-circle right-align"></i></div>
+          <span id="breakDisplay" >
+            <label htmlFor="break-length" id="break-label"><i className="fas fa-coffee" /> Break length </label>{this.state.breakDuration}
+            <input type="range" min="1" max="25" value={this.state.breakDuration} id="break-length" onChange={this.handleBreakChanges} />
+          </span>
+          <div className="bigger-font"><i id="break-increment" onClick={this.handleBreakChanges} className="fas fa-plus-circle right-align" /></div>
+
+
+          <div className="bigger-font"><i id="session-decrement" className="fas fa-minus-circle right-align" onClick={this.handleSessionChanges} /></div>
+          <span id="sessionDisplay">
+            <label htmlFor="session-length" id="session-label"><i className="fas fa-briefcase" /> Session length </label>{this.state.sessionDuration}
+            <input type="range" min="1" max="60" value={this.state.sessionDuration} id="session-length" onChange={this.handleSessionChanges} />
+          </span>
+          <div className="bigger-font"><i id="session-increment" className="fas fa-plus-circle right-align" onClick={this.handleSessionChanges} /></div>
       </main>
       <footer>
           <button id='start_stop' onClick={this.handleTimerControlClick}>Start / Stop</button>
