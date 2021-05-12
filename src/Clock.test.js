@@ -3,6 +3,11 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { ClockApp } from './Clock';
 
+window.HTMLMediaElement.prototype.load = () => { /* do nothing */ };
+window.HTMLMediaElement.prototype.play = () => { /* do nothing */ };
+window.HTMLMediaElement.prototype.pause = () => { /* do nothing */ };
+window.HTMLMediaElement.prototype.addTextTrack = () => { /* do nothing */ }
+
 describe('All expected UI elements are present', () => {
   test.each`
   cssId |htmlContent |story
@@ -74,12 +79,9 @@ ${'start_stop'} | ${'User Story #9: I can see a clickable element with a corresp
 ${'reset'} | ${'User Story #10: I can see a clickable element with a corresponding id="reset".'}
 `('$story', ({ cssId }) => {
     render(<ClockApp />);
-    let testOutput = document.getElementById('testoutput');
     let element = document.getElementById(cssId);
 
     fireEvent.click(element);
-
-    expect(testOutput).toHaveTextContent('event triggered by '.concat(cssId));
   });
 });
 
@@ -98,26 +100,70 @@ describe('All functionality behaves as expected by FCC', () => {
     expect(timerLabel).toHaveTextContent('25:00');
   });
 
-  test.skip.each`
-clickCssId | valueCssId | story
-${'break-decrement'} | ${'break-lenght'} | ${'User Story #12: When I click the element with the id of break-decrement, the value within id="break-length" decrements by a value of 1, and I can see the updated value.'}
-${'break-increment'} | ${'break-lenght'} | ${'User Story #13: When I click the element with the id of break-increment, the value within id="break-length" increments by a value of 1, and I can see the updated value.'}
-${'session-decrement'} | ${'session-lenght'} | ${'User Story #14: When I click the element with the id of session-decrement, the value within id="session-length" decrements by a value of 1, and I can see the updated value.'}
-${'session-increment'} | ${'session-lenght'} | ${'User Story #15: When I click the element with the id of session-increment, the value within id="session-length" increments by a value of 1, and I can see the updated value.'}
-`('$story', (clickCssId, valueCssId) => {
+  test.each`
+clickCssId | valueCssId | expectedValue | story
+${'break-decrement'} | ${'break-length'} | ${'4'} | ${'User Story #12: When I click the element with the id of break-decrement, the value within id="break-length" decrements by a value of 1, and I can see the updated value.'}
+${'break-increment'} | ${'break-length'} | ${'6'} |${'User Story #13: When I click the element with the id of break-increment, the value within id="break-length" increments by a value of 1, and I can see the updated value.'}
+${'session-decrement'} | ${'session-length'} | ${'24'}  | ${'User Story #14: When I click the element with the id of session-decrement, the value within id="session-length" decrements by a value of 1, and I can see the updated value.'}
+${'session-increment'} | ${'session-length'} | ${'26'}  | ${'User Story #15: When I click the element with the id of session-increment, the value within id="session-length" increments by a value of 1, and I can see the updated value.'}
+`('$story', ({clickCssId, valueCssId, expectedValue}) => {
+  render(<ClockApp />);
+  let timerLabel = document.getElementById('time-left');
 
+  fireEvent.click(document.getElementById(clickCssId));
+
+  expect(document.getElementById(valueCssId)).toHaveValue(expectedValue);
+  if (clickCssId.startsWith('session')) {
+    let expectedTimerValue = expectedValue.length > 1 ? `${expectedValue}:00` : `0${expectedValue}:00`;
+    expect(timerLabel).toHaveTextContent(expectedTimerValue);
+  }
   });
 
-  test.skip.each`
-value | story
-${0} | ${'User Story #16: I should not be able to set a session or break length to <= '}
-${60} | ${'User Story #17: I should not be able to set a session or break length to > '}
-`('$story $value', (value) => {
+  test('User Story #16: I should not be able to set a session or break length to <= 0 ', ()=>{
+    render(<ClockApp />);
+    let timerLabel = document.getElementById('time-left');
+    let breakLength = document.getElementById('break-length').value;
+    expect(breakLength).toBe('5');
 
+    for(let i = 0;i <= breakLength;i++) {
+      fireEvent.click(document.getElementById('break-decrement'));
+    }
+    expect(document.getElementById('break-length').value).toBe('1');
+
+    let sessionLength = document.getElementById('session-length').value;
+    for (let i = 0; i <= sessionLength; i++) {
+      fireEvent.click(document.getElementById('session-decrement'));
+    }
+
+    expect(document.getElementById('session-length').value).toBe('1');
+    expect(timerLabel).toHaveTextContent('01:00');
   });
 
-  test.skip('User Story #18: When I first click the element with id="start_stop", the timer should begin running from the value currently displayed in id="session-length", even if the value has been incremented or decremented from the original value of 25.', () => {
+  test('User Story #17: I should not be able to set a session length > 60 or break length to > 25', ()=> {
+    render(<ClockApp />);
+    let timeLeft = document.getElementById('time-left');
+    let breakLength = document.getElementById('break-length').value;
+    expect(breakLength).toBe('5');
 
+    for (let i = 0; i <= 60; i++) {
+      fireEvent.click(document.getElementById('break-increment'));
+    }
+    expect(document.getElementById('break-length').value).toBe('60');
+
+    for (let i = 0; i <= 70; i++) {
+      fireEvent.click(document.getElementById('session-increment'));
+    }
+
+    expect(document.getElementById('session-length').value).toBe('60');
+    expect(timeLeft).toHaveTextContent('60:00');
+  });
+
+  test('User Story #18: When I first click the element with id="start_stop", the timer should begin running from the value currently displayed in id="session-length", even if the value has been incremented or decremented from the original value of 25.', () => {
+    render(<ClockApp />);
+    let startButton = document.getElementById('start_stop');
+    fireEvent.click(startButton);
+    
+    expect(document.getElementById('time-left')).toHaveTextContent('25:00');
   });
 
   test.skip('User Story #19: If the timer is running, the element with the id of time-left should display the remaining time in mm:ss format (decrementing by a value of 1 and updating the display every 1000ms).', () => {
