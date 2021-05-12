@@ -3,13 +3,13 @@ body{
   background-color: rgb(175, 172, 172);
 }
 
-#pomodoro-app {
+#home {
   width: 100%;
   margin: auto;
 }
 
 @media (min-width:1024px)  {
-  #pomodoro-app {
+  #home {
     width: 50%;
     margin: auto;
   }

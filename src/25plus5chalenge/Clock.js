@@ -202,7 +202,3 @@ export class ClockApp extends React.Component {
     );
   }
 }
-
-
-// let appRoot = document.getElementById('pomodoro-app');
-// ReactDOM.render(<Clock />, appRoot);

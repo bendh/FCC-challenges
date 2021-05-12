@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { ClockApp } from './Clock';
+import { HomePage } from './home/Home';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ClockApp />
+    <HomePage />
   </React.StrictMode>,
-  document.getElementById('pomodoro-app')
+  document.getElementById('home')
 );
 
 // If you want to start measuring performance in your app, pass a function
