@@ -1,0 +1,44 @@
+:root {
+  --default-padding: 5px;
+  --default-margin: 5px;
+}
+@media screen {
+  
+}
+section > header {
+  text-align: center;
+  font-size: 30px;
+}
+code {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 5px;
+}
+body {
+  display:flex;
+  margin: var(--default-margin);
+  padding: var(--default-padding);
+}
+nav {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  background-color: #eee;
+  padding: var(--default-padding);
+  margin: var(--default-margin);
+}
+.nav-link {
+  text-decoration: none;
+  background-color: #efe;
+  border-radius: 2px;
+  margin: 2px;
+}
+.nav-link:hover {
+  background-color: #eee;
+}
+main {
+  width: 70%;
+  background-color: #efe;
+  padding: var(--default-padding);
+  margin: var(--default-margin);
+}

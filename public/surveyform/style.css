@@ -1,0 +1,10 @@
+#survey-form {
+    display: flex;
+    flex-direction: column;
+    width:500px;
+  }
+  
+  #submit{
+    align-self: flex-end;
+    width:60px;
+  }

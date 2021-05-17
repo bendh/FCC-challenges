@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+      <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+      <body>
+      <nav id="navbar">
+        <header>Getting started with Java</header>
+        <a class="nav-link" href="#Introduction">Introduction</a>
+        <a class="nav-link" href="#What_should_you_already_know">What should you already know</a>
+        <a class="nav-link" href="#Java_and_Kotlin">Java and Kotlin</a>
+        <a class="nav-link" href="#Hello_world">Hello world</a>
+        <a class="nav-link" href="#Objects_and_primitives">Objects and primitives</a>
+      </nav>
+      <main id=main-doc>
+        <section class="main-section" id="Introduction"><header>Introduction</header>
+          <p>This documentation is to help you get started with Java.</p>
+        </section>
+        <section class="main-section" id="What_should_you_already_know"><header>What should you already know</header>
+          <p>You should already have some programming knowledge</p>
+          <p>You should know the concepts of variables, loops and working with conditions<p>
+        </section>
+        <section class="main-section" id="Java_and_Kotlin"><header>Java and Kotlin</header>
+          <p>Java was the first language to run on the JVM. JVM stands for Java virtual machine. The JVM provides a unified runtime to run Java code on any platform. The credo of Java is "write once, run anywhere".</p>
+          <p>Kotlin is a new language for the JVM designed by Jetbrains. It has taken the best features of Java, C# and Javascript. It's a fun and productive language to use.</p>
+          <p>Kotlin is the prefered language for writing Android apps.</p>
+          <p>Kotlin is expanding beyon the JVM and targeting also native platforms.</p>
+        </section>
+        <section class="main-section" id="Hello_world"><header>Hello world</header>
+          <p>In this section we will write a Hello world console program in Java and Kotlin.</p>
+          <p>Every Java runnable program needs to have a class with a public static main method. To print to the console you need the System.out.print function.</p>
+          <code>public class HelloWorld {
+            
+              public static void main(String[] args) {
+              System.out.println("Hello world");
+            }
+          
+            }
+          </code>
+          <p>For Kotlin you will need the same but the code is less verbose as you can see</p>
+          <code>fun main(args: Array<String>) {
+          println("Hello, world!")
+      }</code>
+            There are some diference to note:
+            <ul>
+              <li>The kotlin code don't need to be in a class</li>
+              <li>Because the main function is written in a package file, you can omit the method modifiers public and static</li>
+              <li>No comma's are needed in kotlin</li>
+              <li>println is called directly</li>
+              <li>type definition is placed after the variable name</li>
+            </ul>
+        </section>
+        <section class="main-section" id="Objects_and_primitives"><header>Objects and primitives</header>
+          <p>In this section we will discuss the difference between Object's and primitive types</p>
+          <p>To declare a variable in Java you specify the access modifier, type and name. To declare a private String called name you would write:
+            <code>private String name;</code>
+            <p>This name variable is declared but not yet initialised. If you try to access this variable you will be a <strong>dreaded</strong> Nullpointer exception</p>
+          <code>private String name;
+                int lenght = name.lenght(); // Will throw NullPointerException ;<(
+          </code>
+            <p>Primitives like boolean, int, long and double are always initialised</p>
+            <code>int age; //Initialised with the value 0;
+            </code>
+        </section>
+      </main>
+      </body>
+    </body>
+</html>
